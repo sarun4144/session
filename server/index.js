@@ -4,6 +4,9 @@ const port = 8000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+app.listen(port, () => {
+    console.log("Server listening on port " + port);
+  });
 app.get("/api/server-time", (request, response) => {
   let now = new Date();
   let time = {
@@ -13,6 +16,20 @@ app.get("/api/server-time", (request, response) => {
   };
   response.json(time);
 });
+
+app.get("/api/form-get", (request, response) => {
+  let t = request.query.target || "";
+  let k = request.query.kw || "";
+  let n = parseInt(Math.random() * 1000);
+  let r = {
+    target: t,
+    kw: k,
+    results: n,
+  };
+  response.json(r);
+});
+
+
 function rd(min, max) {
   let x = max - min + 1;
   return min + Math.floor(Math.random() * x);
@@ -27,9 +44,7 @@ app.get("/api/football-result", (request, response) => {
     `;
   response.send(table);
 });
-app.listen(port, () => {
-  console.log("Server listening on port " + port);
-});
+
 
 app.post("/api/form-post", (request, response) => {
   let name = request.body.name || "";
