@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import style from "./style.css"
 import SessionSignedIn from './session-signedin'
 
-function session() {
+function Session() {
     let [signedIn, setSignedIn] = useState(false)
     const form = useRef()
 
@@ -20,11 +20,11 @@ function session() {
         const fe = Object.fromEntries(fd.entries())
 
         fetch('/api/session/set', {
-            method: 'post',
+            method: 'POST',
             body: JSON.stringify(fe),
-            headers: { 'Content-Type': 'application/jason' }
+            headers: { 'Content-Type': 'application/json' }
         })
-            .then(response => response.json)
+            .then(response => response.json())
             .then(result => {
                 if (result.signedIn) {
                     setSignedIn(result.signedIn)
@@ -36,22 +36,23 @@ function session() {
     }
     if (!signedIn) {
         return (
-            <div style={{ margin: "30px" }}>
+            <div style={{margin:"30px"}}>
                 <form onSubmit={onSubmitForm} ref={form}>
-                    <input type='email' name='email' placeholder="Email"/>
+                <input type='email' name='email' placeholder="Email"/>
                     <br/>
-                    <input type='password' name='password' placeholder="Password"/>
+                    <input  type='password' name='password' placeholder="Password"/>
                     <br/><br/>
                     <button>ส่งข้อมูล</button>
                 </form>
 
             </div>
         )
+    }else{
+        return (
+            <SessionSignedIn/>
+        )
     }
-
-    return (
-        <SessionSignedIn/>
-    )
+   
 }
 
-export default session
+export default Session

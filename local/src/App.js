@@ -1,8 +1,9 @@
-
+import React from "react";
+import Session from "./session";
 function App() {
   return (
-    <h1>Test Session</h1>
-  );
+    <Session/>
+  )
 }
 
 export default App;
