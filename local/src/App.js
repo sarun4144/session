@@ -1,7 +1,7 @@
-import DBNav from './db-nav'
+
 function App() {
   return (
-   <DBNav/>
+    <h1>Test Session</h1>
   );
 }
 
